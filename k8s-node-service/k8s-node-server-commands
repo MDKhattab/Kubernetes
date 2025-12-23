@@ -1,0 +1,29 @@
+node --version
+npm --version
+npm init -y
+npm install express
+node index.mjs
+npm start
+docker build -t mokhattab/k8s-web-server .
+docker image ls
+docker login
+docker push mokhattab/k8s-web-server:latest
+kubectl get all
+kubectl create deployment k8s-web-server --image=mokhattab/k8s-web-server
+kubectl get all
+kubectl expose deployment k8s-web-server --port=3000
+kubectl get svc
+kubectl scale deployment k8s-web-server --replicas=6
+kubectl get all
+kubectl get pod -o wide
+minikube ssh
+kubectl get all
+kubectl get pod -o wide
+minikube ssh
+minikube ssh
+kubectl get pod -o wide
+minikube ssh
+kubectl delete service k8s-web-server
+kubectl expose deployment k8s-web-server --type=NodePort --port=3000
+kubectl get svc
+minikube service k8s-web-server
