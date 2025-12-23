@@ -1,0 +1,27 @@
+
+----------------------- ingress/ingress-fanout-commands ---------------------------
+kubectl create deploy app1 --image=httpd:latest --replicas=3
+kubectl get all 
+kubectl create deploy app2 --image=gcr.io/google-samples/hello-app:1.0 --replicas=3
+kubectl get all  
+kubectl create deploy app3 --image=gcr.io/google-samples/hello-app:2.0 --replicas=3
+kubectl get all
+kubectl expose deploy app1 --port=80 --type=NodePort
+kubectl expose deploy app2 --port=8080 --type=NodePort
+kubectl expose deploy app3 --port=8080 --type=NodePort
+kubectl get svc
+minikube service app1
+minikube service app2
+minikube service app3
+kubectl apply -f multiapp-ingress.yml
+kubectl get ingress
+kubectl describe ingress multiapp-ingress
+minikube ssh
+docker@# sudo bash -c 'echo "192.168.67.2  codographia.io" >> /etc/hosts'
+docker@# curl http://codographia.io
+docker@# curl http://codographia.io/app2
+docker@# curl http://codographia.io/app3
+docker@# exit
+-------------------------------------------------------------------------------------
+
+kubectl delete all -all -n default                 # Clean up all resources in the default namespace
