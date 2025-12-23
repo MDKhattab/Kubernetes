@@ -1,0 +1,27 @@
+
+------------------------ name-based virtual hosting using Ingress ------------------------
+kubectl create deploy nginx --image=nginx:latest --replicas=3
+kubectl create deploy apache --image=httpd:latest --replicas=3
+kubectl get all
+kubectl expose deploy nginx --port=80 --type=NodePort
+kubectl expose deploy apache --port=80 --type=NodePort
+kubectl get all
+kubectl create ingress mutli-webservers --rule="nginx.com/=nginx:80" --rule="apache.com/=apache:80"
+kubectl get ingress
+kubectl get all
+minikube service nginx
+minikube service apache
+minikube dashboard
+------------------------ ssh into minikube ------------------------
+minikube ip                # Get minikube IP address [192.168.67.2]
+minikube ssh
+------------------------- test from local machine ------------------------
+docker@# cat /etc/hosts
+docker@# sudo bash -c 'echo "192.168.67.2    nginx.com" >> /etc/hosts'
+docker@# sudo bash -c 'echo "192.168.67.2    apache.com" >> /etc/hosts'
+docker@# cat /etc/hosts
+docker@# curl nginx.com
+docker@# curl apache.com
+docker@# exit 
+----------------------------------------------------------------------------
+    
