@@ -1,0 +1,28 @@
+
+
+kubectl apply -f vols-demo.yml
+kubectl get po
+kubectl describe pod  vols-demo
+------------------------------------------
+kubectl exec -it vols-demo -c ubuntu1 -- bash 
+root@vols-demo:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  ubuntu2  usr  var
+root@vols-demo:/# cd ubuntu1/
+root@vols-demo:/ubuntu1# ls
+root@vols-demo:/ubuntu1# touch file1
+root@vols-demo:/ubuntu1# echo "hello world from ubuntu1" > file1
+root@vols-demo:/ubuntu1# touch mkhattab
+root@vols-demo:/ubuntu1# ls
+file1  mkhattab
+root@vols-demo:/ubuntu1# exit
+-------------------------------------------
+kubectl exec -it vols-demo -c ubuntu2 -- bash
+root@vols-demo:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  ubuntu2  usr  var
+root@vols-demo:/# cd ubuntu2/
+root@vols-demo:/ubuntu2# ls
+file1  mkhattab
+root@vols-demo:/ubuntu2# cat file1
+hello world from ubuntu1
+root@vols-demo:/ubuntu2# exit
+-------------------------------------------

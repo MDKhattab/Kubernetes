@@ -1,0 +1,21 @@
+kubectl explain pod.spec.volume        # get small decumentation of volume of k8s 
+kubectl explain pod         # get small decumentation of pod of k8s
+kubectl explain container   # get small decumentation of container of k8s 
+kubectl explain any-object   # get small decumentation of any-object of k8s 
+------------------------------------------------------------------------------
+kubectl apply -f redis.yml  # create pod 
+kubectl get po
+kubectl get pod redis --watch   # monitor the pod 
+root@# cd data/redis/
+root@# echo "hello world from redis" > file1
+root@# cat file
+root@# apt-get update
+root@# apt-get install procps
+root@# ps -aux
+root@# kill 1
+kubectl exec -it redis -- bash 
+root@# cd data/redis/
+root@# ls 
+root@# cat file1
+-------------------------------------------------------------------------------
+
