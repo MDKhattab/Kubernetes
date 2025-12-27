@@ -1,0 +1,18 @@
+
+----------------*commands*--------------------------------
+kubectl apply -f redis-configmap.yml 
+kubectl get cm 
+kubectl apply -f redis-pod.yml 
+kubectl get po 
+----------------------------------------------------
+kubectl exec -it redis-pod -- redis-cli 
+127.0.0.1:6379> config get maxmemory
+1) "maxmemory"
+2) "5242880"
+127.0.0.1:6379> config get maxmemory-policy
+127.0.0.1:6379> config get maxmemory-policy
+1) "maxmemory-policy"
+2) "allkeys-lru"
+127.0.0.1:6379> exit
+
+
