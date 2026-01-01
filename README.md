@@ -1,129 +1,151 @@
 Here’s a README.md file for all the project for k8s:
 
-# ☸️ Kubernetes Projects Collection
+# Kubernetes Projects by MDKhattab
 
-## 📖 Overview
-This repository contains a series of hands-on Kubernetes projects designed to demonstrate container orchestration, scaling, networking, ingress, and resource management. Each project highlights a different aspect of Kubernetes, from simple deployments to advanced ingress routing.
-
----
-
-## 📦 Projects
-
-### 1. 🟢 NGINX Deployment via `kubectl`
-- Create and scale an NGINX deployment using imperative commands
-- Scale replicas dynamically with `kubectl scale`
-- Inspect rollout status and pod distribution
+This repository contains a curated collection of hands-on Kubernetes (k8s) projects, covering core concepts, deployment strategies, networking, storage, and advanced traffic management.  
+Each folder demonstrates a specific use case with YAML manifests, terminal commands, and practical examples — ideal for DevOps engineers, learners, and cloud-native practitioners.
 
 ---
 
-### 2. 📄 NGINX Deployment via YAML
-- Declarative deployment using `deployment-nginx.yml`
-- 7 replicas managed by the Deployment controller
-- RollingUpdate strategy with label-based selectors
+## 📁 Project Index
+
+### 1. `deployment-strategies`
+Explore four major deployment strategies:
+- **Recreate**: Terminates old pods before starting new ones.
+- **RollingUpdate**: Gradually replaces pods with minimal downtime.
+- **Blue-Green**: Switches traffic between two environments.
+- **Canary**: Routes partial traffic to a new version for testing.
+
+Includes a unified README explaining trade-offs and usage.
 
 ---
 
-### 3. ⚙️ NGINX Pod with Resource Limits
-- Single Pod defined in `nginx.yml`
-- Resource requests: 128Mi memory, 500m CPU
-- Resource limits: 256Mi memory, 1 CPU
-- Pod inspection via logs, describe, and JSON output
+### 2. `ingress`
+Demonstrates **name-based virtual hosting** using Kubernetes Ingress:
+- Multiple apps served under different hostnames.
+- Requires ingress controller (e.g., NGINX).
+- Includes `/etc/hosts` setup and testing instructions.
 
 ---
 
-### 4. 🏷️ Labeled NGINX Pod
-- Pod defined in `webserver.yml` with multiple labels:
-  - `app`, `owner`, `environment`, `country`
-- Label-based queries using `kubectl get pod -l`
-- Demonstrates metadata filtering and label management
+### 3. `k8s-node-service` & `k8s-node-service-v1.2.0-rolling update`
+Deploys a Node.js service with versioned updates:
+- Shows how to apply rolling updates using `kubectl set image`.
+- Highlights versioning and traffic continuity.
 
 ---
 
-### 5. 🌐 Node.js Web Server on Kubernetes
-- Node.js app with Express (`index.mjs`)
-- Dockerfile for containerization
-- Deployment using custom image (`mokhattab/k8s-web-server`)
-- NodePort Service for external access
-- Horizontal scaling to multiple replicas
+### 4. `kubectl-create deployment with terminal`
+Step-by-step guide to creating deployments via CLI:
+- `kubectl create deployment`
+- `kubectl expose`
+- `kubectl scale`
+
+Perfect for beginners learning imperative commands.
 
 ---
 
-### 6. 🔄 Node.js Web Server with Versioned Rollout (v1.2.0)
-- Docker image tagged as `mokhattab/k8s-web-server:1.2.0`
-- Deployment updated with new image version
-- Rollout tracking with `kubectl rollout status`
-- Pod-level version verification via hostname and version response
+### 5. `kubectl-create deployment with yaml file`
+Declarative approach to deployment:
+- Create and apply YAML files.
+- Includes metadata, spec, and container configuration.
 
 ---
 
-### 7. 🚦 Ingress Fanout (Path-Based Routing)
-- Three apps deployed:
-  - `app1` (Apache HTTPD)
-  - `app2` (Hello App v1.0)
-  - `app3` (Hello App v2.0)
-- Ingress routes traffic based on path:
-  - `/` → app1
-  - `/app2` → app2
-  - `/app3` → app3
-- Domain: `codographia.io` mapped via `/etc/hosts`
+### 6. `kubectl-create pod from yaml file`
+Shows how to define and launch a standalone pod:
+- Useful for testing single-container workloads.
+- Includes basic pod lifecycle commands.
 
 ---
 
-### 8. 🏠 Ingress Name-Based Virtual Hosting
-- Two apps deployed:
-  - `nginx` (NGINX web server)
-  - `apache` (Apache HTTPD server)
-- Ingress routes traffic based on hostname:
-  - `nginx.com` → NGINX service
-  - `apache.com` → Apache service
-- Local DNS mapping via `/etc/hosts`
-- Demonstrates multi-tenant hosting on a single cluster
+### 7. `kubectl-labels`
+Explains how to use labels and selectors:
+- Add, modify, and query labels.
+- Use labels for grouping and targeting resources.
 
 ---
 
-## ⚙️ Setup Instructions
+### 8. `multi-containers-on-pods`
+Deploys a pod with multiple containers:
+- Demonstrates sidecar and ambassador patterns.
+- Shows shared networking and volume usage.
 
-### 1. Clone the repository
+---
+
+### 9. `pod-with-multiservice`
+Connects a pod to multiple services:
+- Illustrates service targeting via labels.
+- Useful for microservices and layered architectures.
+
+---
+
+### 10. `recreate-deployment`
+Dedicated example of the **Recreate strategy**:
+- Highlights downtime behavior.
+- Includes image update commands and rollout verification.
+
+---
+
+### 11. `configmap and secrets/redis-cm`
+Uses ConfigMaps to configure a Redis pod:
+- Externalizes environment variables.
+- Demonstrates separation of config from code.
+
+---
+
+### 12. `secrets-k8s`
+Securely injects secrets into pods:
+- Uses Kubernetes Secrets as volumes and env vars.
+- Shows how to mount and access sensitive data.
+
+---
+
+### 13. `statefulset-k8s`
+Deploys a **StatefulSet** workload:
+- Preserves pod identity and storage.
+- Ideal for databases and persistent apps.
+
+---
+
+### 14. `storage-k8s`
+Explores Kubernetes storage options:
+- PersistentVolume (PV)
+- PersistentVolumeClaim (PVC)
+- HostPath and dynamic provisioning
+
+---
+
+## 📖 Repository Highlights
+
+- ✅ Real-world examples with reproducible YAML files
+- 🧠 Covers both beginner and advanced topics
+- 🔄 Includes declarative and imperative workflows
+- 🔐 Demonstrates security, networking, and storage
+- 🚀 Ideal for DevOps labs, interviews, and portfolio building
+
+---
+
+## 🧹 Cleanup Commands
+
+To remove resources from any project:
 ```bash
-git clone https://github.com/your-username/kubernetes-projects.git
-cd kubernetes-projects
+kubectl delete -f <filename>.yaml
 
 
-2. Apply any project manifest
-kubectl apply -f <manifest>.yml
-
-
-3. Inspect resources
-kubectl get pods
-kubectl describe pod <pod-name>
-kubectl logs <pod-name>
-
-
-4. Query by labels
-kubectl get pod -l owner=mkhattab
-kubectl get pod -l 'country in (egypt)'
+Or delete by type:
+kubectl delete deployment <name>
+kubectl delete service <name>
+kubectl delete ingress <name>
 
 
 
-🧠 Key Concepts Practiced
-- Declarative vs imperative resource creation
-- Pod and Deployment management
-- Resource requests and limits
-- Labeling and metadata filtering
-- Ingress path-based and host-based routing
-- Rollout strategies and version control
-- YAML manifest design and inspection
-
-📸 Screenshots
-Each project folder includes screenshots of:
-- Pod creation and rollout
-- Resource allocation
-- Label queries and inspection
-- Ingress routing and browser outputs
-
-👨‍💻 Author
+🙌 Author
 Mohamed Khattab
-DevOps Engineer | Mechatronics Background | Passionate about automation, reproducible labs, and technical teaching
+DevOps Engineer | Mechatronics Background | Technical Educator
+Connect on LinkedIn
 
-📄 License
-MIT License
+📌 License
+This repository is open-source and intended for educational and professional use.
+Feel free to fork, contribute, and share!
+
