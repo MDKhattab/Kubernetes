@@ -1,0 +1,19 @@
+--------------------------------------------------------
+# Commands for Managing Deployment Strategies in Kubernetes
+--------------------------------------------------------
+kubectl set image deploy deploy-name container-name=new-image:tag   # Updates the image of a container in a deployment
+kubectl rollout status deploy deploy-name          # Monitors the status of the deployment rollout
+kubectl rollout history deploy deploy-name         # Views the rollout history of a deployment
+kubectl rollout history deploy deploy-name --revision    # Views details of a specific revision
+kubectl rollout undo deploy deploy-name       ## Rolls back to the previous deployment
+kubectl rollout undo deploy deploy-name --to-revision=number   # Rolls back to a specific revision
+kubectl get deploy deploy-name -o yaml         # Views the current configuration of the deployment
+kubectl describe deploy deploy-name            # Describes the deployment and its current state
+
+--------------------------------------------------------
+kubectl set env deploy deploy-name ENV_VAR_NAME=new-value   # Updates an environment variable in a deployment
+kubectl set resources deploy deploy-name --limits=cpu=200m,memory=512Mi   # Sets resource limits for containers in a deployment
+kubectl scale deploy deploy-name --replicas=number   # Scales the number of replicas in a deployment
+kubectl autoscale deploy deploy-name --min=1 --max=10 --cpu-percent=80   # Enables autoscaling for a deployment
+--------------------------------------------------------
+
